@@ -39,6 +39,7 @@ For this category, I decided to choose a vanilla CNN, with 5 Conv2D layers and 3
 
 ## Blur
 <div align="justify">
+  
 I used the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) from Kaggle for this particular category. During my research, I have managed to achieved good performance using Laplacian variance, and decided not to study further into this topic. The main idea is to calculate the variance of Laplacian on each image as a score. Laplacian is commonly used in edge detection tasks to show the regions in an image with rapid intensity change. After calculating the scores for every image, we simply choose the best value as a threshold for classifying an image as blurry or not.
 </div>
 
@@ -59,7 +60,8 @@ Similar to the work of "Video noise detection", I divide all videos into 8 categ
 - Other
 <div align="justify">
 All videos are categorized into these groups purely based on my observation on the flickers' patterns, which objects are bugged out, how long each flicker occurs,... I strongly believe that making clear definitions for these categories should be a task of high priority.</div><br>
-I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the /model directory.
+
+I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/model``` directory.
 
 # Citation
 
