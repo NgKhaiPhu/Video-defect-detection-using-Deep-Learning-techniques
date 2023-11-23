@@ -15,12 +15,12 @@ I worked on this topic in July 2023, solving the task of detecting visual noises
 The topic was unfinished, since I was introduced to another project in August 2023. You can find all source code & data related to the first 3 categories in the folder VideoNoiseDetection.
 
 ## Impulse noise
-![Impulse noise](img/impulse%20noise.png)
+![Impulse noise](resources/impulse%20noise.png)
 <div align="justify">
 The main idea is to denoise the original image to obtain a "cleaner" version using Deep Learning methods. Then, we compare these 2 images to calculate the difference, and choose a threshold value for classification.
 </div><br>
 
-![Main process](img/workflow.png)
+![Main process](resources/workflow.png)
 
 - Architecture for the denoising stage: Convolutional Autoencoder
 - Image comparison metric: [SSIM](#citation)
@@ -65,18 +65,11 @@ I have attempted to solve the "Frame error" category during October and November
 
 # Preparation
 
-## Blur
-Download the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) into ```VideoNoiseDetection/datasets/blur/```. The directory should look like this 
+## Impulse noise
+Download the [SIDD_Small_sRGB_Only](https://www.eecs.yorku.ca/~kamel/sidd/dataset.php) into ```VideoNoiseDetection/datasets/```
 
-``` bash
-├── datasets
-│   └── blur
-│       ├── blur_dataset.py
-│       └── blur_dataset
-│           ├── defocused_blurred
-│           └── motion_blurred
-│           └── sharp
-```
+## Blur
+Download the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) into ```VideoNoiseDetection/datasets/```
 
 # Citation
 
