@@ -63,6 +63,21 @@ All videos are categorized into these groups purely based on my observation on t
 
 I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/model``` directory.
 
+# Preparation
+
+## Blur
+Download the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) into ```VideoNoiseDetection/datasets/blur/```. The directory should look like this 
+
+``` bash
+├── datasets
+│   └── blur
+│       ├── blur_dataset.py
+│       └── blur_dataset
+│           ├── defocused_blurred
+│           └── motion_blurred
+│           └── sharp
+```
+
 # Citation
 
 ```bibtex
