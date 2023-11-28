@@ -54,6 +54,7 @@ def result(model, test_loader):
     max_acc = -1
     max_acc_th = -1
     
+    # Find threshold values by looping
     for threshold in np.arange(1,0,-0.01):
         tn = len(ssim_without_gt_np[ssim_without_gt_np < threshold])
         tp = len(ssim_wrt_gt_np[ssim_wrt_gt_np > threshold])

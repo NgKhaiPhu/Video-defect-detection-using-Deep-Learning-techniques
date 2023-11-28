@@ -4,13 +4,13 @@ This repository contains all code, data, documents and other files that I have c
 # Video noise detection
 I worked on this topic in July 2023, solving the task of detecting visual noises and defects in video. My main approach was to categorize all video noises into 7 groups, and tackle them individually. The 7 categories are:
   
-- Impulse noise
-- Image glitch
+- Impulse noise: Pixel-level noises
+- Image glitch: horizontal or vertical glitches
 - Blur
-- Periodic noise
-- Scratches & blotches
-- Freeze frame
-- Snow/TV static
+- Periodic noise: a good explanation can be found [here](https://en.wikipedia.org/wiki/Image_noise#Periodic_noise)
+- Scratches & blotches: defects on old movies due to poor conditions in film strips preservation
+- Freeze frame: some frames remain unchanged for a certain period
+- Snow/TV static: see [this Wikipedia page](https://en.wikipedia.org/wiki/Noise_(video))
 
 The topic was unfinished, since I was introduced to another project in August 2023. You can find all source code & data related to the first 3 categories in the folder VideoNoiseDetection.
 
@@ -45,31 +45,58 @@ I used the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) 
 
 # Flicker detection
 <div align="justify">
-I worked on this topic from August to the end of my internship program. After some discussions with the tester team from EMC2, I was given access to all of CCS2BUG tickets. During August, I have managed to collect more than 200 videos recording steps to reproduce failed test cases. These videos come in the form of camera records or screen capture. 
+I worked on this topic from August to the end of my internship program. After some discussions with the tester team from EMC2, I was given access to all of CCS2BUG tickets in order to support my data collection process. During August, I have managed to gather 321 videos recording steps to reproduce failed test cases from more than 200 different tickets. These videos come in the form of camera records or screen capture. 
 </div><br>
 
-Similar to the work of "Video noise detection", I divide all videos into 8 categories:
+Similar to the work of "Video noise detection", I divide all videos into these categories:
 
-- Blank screen
-- Chaotic switch
-- Frame error
-- List-slider
-- Object
-- Screen slide
-- Unfeasible
-- Other
+- Blank screen: all content on the screen disappear, leaving a monochrome screen
+- Chaotic switch: switching screens causes the device to alternate screens chaotically during transitions. Happens for an extended 
+- Frame error: very similar to chaotic switch, but screens only alternate twice, and lasts for much shorter period
+- List-slider: related to list or slider objects
+- Object: related to particular objects on the screen (circles, boxes, icons,...)
+- Screen slide: related to main screen sliding
+- Other: cannot be classified into any of the above categories
 <div align="justify">
 All videos are categorized into these groups purely based on my observation on the flickers' patterns, which objects are bugged out, how long each flicker occurs,... I strongly believe that making clear definitions for these categories should be a task of high priority.</div><br>
 
-I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/model``` directory.
+I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/models``` directory.
+
+# Documents
+<div align="justify">
+```doc/ticket categories.xlsx``` contains the results of flicker categorization according to the above definitions, as well as frame numbers pinpointing the exact starting point of each flicker, identified through manual inspection. The "Frame" column is not fully filled at present due to limited time on data labeling, and should eventually be completed if the project resumes in the future.</div><br>
+```doc/ticket ID.xlsx``` contains the ID and summary for each flicker cases. This file can be used to refer back to all tickets posted on JIRA CCS2BUG.
+
+# Examples
+Folder ```examples``` contains examples of main.py scripts for different purposes. Before running these, copy them and paste in the root folder.
 
 # Preparation
 
 ## Impulse noise
 Download the [SIDD_Small_sRGB_Only](https://www.eecs.yorku.ca/~kamel/sidd/dataset.php) into ```VideoNoiseDetection/datasets/```
 
+## Image glitch
+Download the [UCF101](https://www.crcv.ucf.edu/data/UCF101.php) into ```VideoNoiseDetection/datasets/```. Then, copy ```tools/VideoNoiseDetection/extract ucf101 frames.ipynb``` and paste in ```VideoNoiseDetection/datasets/```. I have included some examples of cells on how to run the frame extraction functions, but one can also write their own.
+
 ## Blur
 Download the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) into ```VideoNoiseDetection/datasets/```
+
+## Flicker detection
+Refer to anh Bình for all checkpoints and data required to run this project.<br>
+
+![Data directory](resources/data_dir.png)
+<div align="justify">
+The data includes 2 main folders. One is the original data that I have collected, categorized and named. The names are supposed to be a short description for how the flickers would look like in the video. To feed these videos into the model, we need to cut them into multiple sequences of 16 frames per clip. All of these 16-frames clips can be found in the second folder ```16frames```. The naming convention for these videos are ```16frames/video-name_start-frame_end-frame_label.mp4```. The label is either 0 or 1, representing whether the clip does not/does contain flicker, respectively.
+</div><br>
+
+<div align="justify">
+Unzip ```16frames.zip``` to ```FlickerDetection/datasets``` before running the train process. Alternatively, one can store the data inside their preferred directory and specifies the path as argument of ```train()```.
+</div><br>
+
+![Checkpoint directory](resources/checkpoint_dir.png)
+<div align="justify">
+```r3d101_K_200ep.pth``` is the pretrained model for ResNet3D-101, downloaded from this [repository](https://github.com/kenshohara/3D-ResNets-PyTorch). Please refer to this source for other pretrained versions if needed, as my Resnet3D backbone is also imported from here.</div><br>
+```epoch=29-val_loss=0.11.ckpt``` is the pretrained version for my model, which can be loaded directly with the ```get_model()``` function. Please refer to ```examples``` for this.
 
 # Citation
 
@@ -97,5 +124,27 @@ Download the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset
   doi={10.1109/SYSMART.2016.7894491}}
 ```
 
+```bibtex
+@misc{he2015deep,
+      title={Deep Residual Learning for Image Recognition}, 
+      author={Kaiming He and Xiangyu Zhang and Shaoqing Ren and Jian Sun},
+      year={2015},
+      eprint={1512.03385},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
+```bibtex
+@misc{wang2018nonlocal,
+      title={Non-local Neural Networks}, 
+      author={Xiaolong Wang and Ross Girshick and Abhinav Gupta and Kaiming He},
+      year={2018},
+      eprint={1711.07971},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
 # Acknowledgement
-Thank you anh Vinh, anh Bình, anh Đức, chị Phúc and Trinh for all of your support during my internship program.
+Special thanks to anh Vinh, anh Bình, anh Đức, chị Phúc and Trinh for all of your support during my internship program <3 .
