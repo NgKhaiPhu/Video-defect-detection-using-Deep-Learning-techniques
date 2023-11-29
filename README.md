@@ -58,12 +58,14 @@ Similar to the work of "Video noise detection", I divide all videos into these c
 - Screen slide: related to main screen sliding
 - Other: cannot be classified into any of the above categories
 <div align="justify">
+  
 All videos are categorized into these groups purely based on my observation on the flickers' patterns, which objects are bugged out, how long each flicker occurs,... I strongly believe that making clear definitions for these categories should be a task of high priority.</div><br>
 
 I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/models``` directory.
 
 # Documents
 <div align="justify">
+  
 ```doc/ticket categories.xlsx``` contains the results of flicker categorization according to the above definitions, as well as frame numbers pinpointing the exact starting point of each flicker, identified through manual inspection. The "Frame" column is not fully filled at present due to limited time on data labeling, and should eventually be completed if the project resumes in the future.</div><br>
 ```doc/ticket ID.xlsx``` contains the ID and summary for each flicker cases. This file can be used to refer back to all tickets posted on JIRA CCS2BUG.
 
@@ -86,15 +88,18 @@ Refer to anh Bình for all checkpoints and data required to run this project.<br
 
 ![Data directory](resources/data_dir.png)
 <div align="justify">
-The data includes 2 main folders. One is the original data that I have collected, categorized and named. The names are supposed to be a short description for how the flickers would look like in the video. To feed these videos into the model, we need to cut them into multiple sequences of 16 frames per clip. All of these 16-frames clips can be found in the second folder ```16frames```. The naming convention for these videos are ```16frames/video-name_start-frame_end-frame_label.mp4```. The label is either 0 or 1, representing whether the clip does not/does contain flicker, respectively.
+  
+The data includes 2 main folders. One is the original data that I have collected, categorized and named. The names are supposed to be a short description for how the flickers would look like in the video. To feed these videos into the model, we need to cut them into multiple sequences of 16 frames per clip. All of these 16-frames clips can be found in the second folder `16frames`. The naming convention for these videos are ```16frames/video-name_start-frame_end-frame_label.mp4```. The label is either 0 or 1, representing whether the clip does not/does contain flicker, respectively.
 </div><br>
 
 <div align="justify">
+  
 Unzip ```16frames.zip``` to ```FlickerDetection/datasets``` before running the train process. Alternatively, one can store the data inside their preferred directory and specifies the path as argument of ```train()```.
 </div><br>
 
 ![Checkpoint directory](resources/checkpoint_dir.png)
 <div align="justify">
+  
 ```r3d101_K_200ep.pth``` is the pretrained model for ResNet3D-101, downloaded from this [repository](https://github.com/kenshohara/3D-ResNets-PyTorch). Please refer to this source for other pretrained versions if needed, as my Resnet3D backbone is also imported from here.</div><br>
 ```epoch=29-val_loss=0.11.ckpt``` is the pretrained version for my model, which can be loaded directly with the ```get_model()``` function. Please refer to ```examples``` for this.
 
