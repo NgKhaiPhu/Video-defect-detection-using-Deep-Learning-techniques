@@ -2,7 +2,7 @@
 This repository contains all code, data, documents and other files that I have created during my internship program from Jun 2023 to Nov 2023.
 
 # Video noise detection
-I worked on this topic in July 2023, solving the task of detecting visual noises and defects in video. My main approach was to categorize all video noises into 7 groups, and tackle them individually. The 7 categories are:
+In July 2023, I worked on detecting visual noise and defects in video. My primary approach involved categorizing all video noise into 7 distinct groups and addressing each one individually. The 7 categories are:
   
 - Impulse noise: Pixel-level noises
 - Image glitch: horizontal or vertical glitches
@@ -32,9 +32,9 @@ Unfortunately, I did not manage to find any glitch image dataset. Therefore, I h
 - [glitch_this's](https://github.com/TotallyNotChase/glitch-this) ImageGlitcher module
 - My own implementation of glitching, including resizing and pixel shuffling
 
-I merged these new glitched frames with the original frames, creating a balanced dataset consists of over 1000 frames.<br>
+These new glitched frames are merged with the original frames, creating a balanced dataset consists of over 1000 frames.<br>
 <div align="justify">
-For this category, I decided to choose a vanilla CNN, with 5 Conv2D layers and 3 linear layers. The model achieved > 90% accuracy, despite the simplicity of its architecture. However, since my data augmentation methods cannot cover all cases of real-world image glitches, the model failed a lot of inference tests.
+For this category, I decided to choose a vanilla CNN with 5 Conv2D layers and 3 linear layers. The model achieved over 90% accuracy, despite the simplicity of its architecture. However, since my data augmentation methods couldn't account for all real-world image glitches, the model struggled in many inference tests.
 </div>
 
 ## Blur
@@ -45,21 +45,22 @@ I used the [Blur dataset](https://www.kaggle.com/datasets/kwentar/blur-dataset) 
 
 # Flicker detection
 <div align="justify">
-I worked on this topic from August to the end of my internship program. After some discussions with the tester team from EMC2, I was given access to all of CCS2BUG tickets in order to support my data collection process. During August, I have managed to gather 321 videos recording steps to reproduce failed test cases from more than 200 different tickets. These videos come in the form of camera records or screen capture. 
+I worked on this topic from August to the end of my internship program. After some discussions with the tester team from EMC2, I was granted access to all of CCS2BUG tickets to aid in my data collection process. During August, I have managed to gather 321 videos documenting the steps to reproduce failed test cases from more than 200 different tickets. These videos come in the form of camera records or screen capture.
 </div><br>
 
 Similar to the work of "Video noise detection", I divide all videos into these categories:
 
-- Blank screen: all content on the screen disappear, leaving a monochrome screen
-- Chaotic switch: switching screens causes the device to alternate screens chaotically during transitions. Happens for an extended 
-- Frame error: very similar to chaotic switch, but screens only alternate twice, and lasts for much shorter period
+- Blank screen: all content on the screen disappear, leaving a monochrome screen (green, blue, black or white screen)
+- Chaotic switch: switching screens causes the device to alternate screens chaotically during transitions. Happens for an extended period of time
+- Frame error: very similar to a chaotic switch, but with screens alternating only twice and lasting for a much shorter duration
 - List-slider: related to list or slider objects
 - Object: related to particular objects on the screen (circles, boxes, icons,...)
 - Screen slide: related to main screen sliding
 - Other: cannot be classified into any of the above categories
 <div align="justify">
   
-All videos are categorized into these groups purely based on my observation on the flickers' patterns, which objects are bugged out, how long each flicker occurs,... I strongly believe that making clear definitions for these categories should be a task of high priority.</div><br>
+All videos are categorized into these groups purely based on my observation of the flickers' patterns, the affected objects, the duration of each flicker, and similar factors. I firmly believe that establishing clear definitions for these categories should be a top priority.
+</div><br>
 
 I have attempted to solve the "Frame error" category during October and November 2023. All models that I have built can be found in the ```FlickerDetection/models``` directory.
 
@@ -88,8 +89,8 @@ Refer to anh Bình for all checkpoints and data required to run this project.<br
 
 ![Data directory](resources/data_dir.png)
 <div align="justify">
-  
-The data includes 2 main folders. One is the original data that I have collected, categorized and named. The names are supposed to be a short description for how the flickers would look like in the video. To feed these videos into the model, we need to cut them into multiple sequences of 16 frames per clip. All of these 16-frames clips can be found in the second folder `16frames`. The naming convention for these videos are ```16frames/video-name_start-frame_end-frame_label.mp4```. The label is either 0 or 1, representing whether the clip does not/does contain flicker, respectively.
+
+The data is organized into two main folders. One is the original data that I have collected, categorized and labeled. The names are supposed to be a short description for how the flickers would look like in the video. Before feeding these videos into the model, they need to be segmented into sequences of 16 frames per clip. All of these 16-frames clips can be found in the second folder `16frames`. The naming convention for these videos are ```16frames/video-name_start-frame_end-frame_label.mp4```. The label is either 0 or 1, representing whether the clip does not/does contain flicker, respectively.
 </div><br>
 
 <div align="justify">
